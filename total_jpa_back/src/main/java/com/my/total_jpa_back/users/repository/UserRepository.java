@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     // 4. 색상과 성별로 검색하기
     // Select * from users Where like_color='red' and gender='female'
     List<Users> findByLikeColorAndGender(String color, Gender gender);
+
+    //  5. email 중 특정 사이트 포함 이메일 계정 찾기
+    List<Users> findByEmailContaining(String keyword);
 }
