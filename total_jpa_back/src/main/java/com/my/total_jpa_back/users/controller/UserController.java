@@ -3,6 +3,7 @@ import com.my.total_jpa_back.common.entity.Gender;
 import com.my.total_jpa_back.users.entity.Users;
 import com.my.total_jpa_back.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,45 @@ public class UserController {
     @GetMapping("/email")
     public List<Users> findByEmail(@RequestParam String keyword){
         return userRepository.findByEmailContaining(keyword);
+    }
+
+    //  이름 : 오름차순, 생성일에 내림차순
+    @GetMapping("/sort")
+    public List<Users> findBySort(){
+        Sort sort = Sort.by("name").ascending()
+                .and(
+                  Sort.by("createdAt").descending()
+                );
+        return userRepository.findAll(sort);
+    }
+
+    //      Page
+    @GetMapping("/page")
+    public Page<Users> findAllPage(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(
+                page, size,
+                Sort.by("createdAt").descending());
+        return userRepository.findAll(pageable);
+    }
+
+    // Slice
+    @GetMapping("/slice")
+    public Slice<Users> findAllSlice(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+
+        Pageable pageable =
+                PageRequest.of(
+                        page,
+                        size,
+                        Sort.by("createdAt")
+                                .descending()
+                );
+
+        return userRepository.findAllBy(pageable);
     }
 }
