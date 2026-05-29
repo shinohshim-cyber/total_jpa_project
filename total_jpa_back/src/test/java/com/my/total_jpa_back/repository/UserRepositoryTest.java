@@ -1,6 +1,7 @@
 package com.my.total_jpa_back.repository;
 
 import com.my.total_jpa_back.common.entity.Gender;
+import com.my.total_jpa_back.orders.entity.UserOrder;
 import com.my.total_jpa_back.users.entity.Users;
 import com.my.total_jpa_back.users.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +21,48 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
+
+    @Test
+    @Transactional
+    @DisplayName("JPQL로 가져오기")
+    void findAllWithOrders(){
+        //  전체 User 리스트 받아온다.
+//        List<Users> users = userRepository.findAllWithOrders();
+//        for(Users user : users){
+//            log.info("이름 : {}", user.getName());
+//            for(UserOrder order : user.getOrders()) {
+//                log.info("주문번호 : {}, 제품명 : {}", order.getId(), order.getProductName());
+//            }
+//        }
+    }
+    @Test
+    @Transactional
+    @DisplayName("N+1 문제 확인")
+    void nPlusOneTest(){
+        //  전체 User 리스트 받아온다.
+//        List<Users> users = userRepository.findAll();
+//        for(Users user : users){
+//            log.info("이름 : {}", user.getName());
+//            for(UserOrder order : user.getOrders()) {
+//                log.info("주문번호 : {}, 제품명 : {}", order.getId(), order.getProductName());
+//            }
+//        }
+    }
+
+    //  회원정보 조회 후 주문정보 찾아보기
+    @Test
+    @DisplayName("회원정보 조회 후 주문정보 찾아보기")
+    @Transactional
+    void findUserAndOrderInfoTest(){
+//        Users user = userRepository.findById(1L)
+//                .orElseThrow();
+//        log.info("이름 = {}", user.getName());
+//        //  주문목록 조회
+//        for(UserOrder order : user.getOrders()){
+//            log.info("제품명 = {}", order.getProductName());
+//            log.info("가격 = {}", order.getPrice());
+//        }
+    }
 
     // Slice : 무한 스크롤 용으로 자료가 필요할 때
     // 가볍다. 정보를 다음페이지? ..
