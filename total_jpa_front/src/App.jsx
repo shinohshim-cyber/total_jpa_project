@@ -103,13 +103,13 @@ function App() {
           <Pagination.Next
             disabled={page == totalPage - 1}
             onClick={() => {
-              if (page < totalPage - 10) setPage(page + 1);
+              if (page < totalPage - 1) setPage(page + 1);
             }}
           />
           <Pagination.Last
-            disabled={page < totalPage - 10}
+            disabled={page >= totalPage - 10}
             onClick={() => {
-              if (page < totalPage - 1) setPage(totalPage - 10);
+              if (page < totalPage - 10) setPage(page + 10);
             }}
           />
         </Pagination>
