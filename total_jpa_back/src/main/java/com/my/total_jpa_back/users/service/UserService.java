@@ -1,5 +1,6 @@
 package com.my.total_jpa_back.users.service;
 
+import com.my.total_jpa_back.common.dto.PageResponse;
 import com.my.total_jpa_back.common.exception.UserNotFoundException;
 import com.my.total_jpa_back.users.dto.UserCreateRequest;
 import com.my.total_jpa_back.users.dto.UserResponse;
@@ -7,14 +8,27 @@ import com.my.total_jpa_back.users.dto.UserUpdateRequest;
 import com.my.total_jpa_back.users.entity.Users;
 import com.my.total_jpa_back.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
+    //  page 졍보를 가져올 서비스
+    //  page -> DTO 변환
+    @Transactional(readOnly = true)
+    public PageResponse<UserResponse> findPage(Pageable pageable){
+        // 페이징 정보를 이용해서 검색해 오기
+        Page<Users> users = userRepository.findAll(pageable);
+        //  ResponseUser DTO 변환
+        Page<UserResponse>  response = users.map(user -> UserResponse.from(user));
+        return new PageResponse<>(response);
+    }
     @Transactional
     public UserResponse create(UserCreateRequest request) {
         Users user = new Users();
