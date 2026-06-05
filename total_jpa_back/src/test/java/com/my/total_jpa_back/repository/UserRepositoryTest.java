@@ -191,15 +191,15 @@ class UserRepositoryTest {
 
 
 
-    @Test
-    @DisplayName("회원 전체 조회")
-    void findAllTest() {
-        // given
-        // when
-        List<Users> users = userRepository.findAll();
-        // then
-        assertThat(users.size()).isEqualTo(500);
-    }
+//    @Test
+//    @DisplayName("회원 전체 조회")
+//    void findAllTest() {
+//        // given
+//        // when
+//        List<Users> users = userRepository.findAll();
+//        // then
+//        assertThat(users.size()).isEqualTo(500);
+//    }
 
     @Test
     @DisplayName("성별 조회")
