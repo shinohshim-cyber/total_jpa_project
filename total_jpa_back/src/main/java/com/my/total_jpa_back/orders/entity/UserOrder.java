@@ -6,10 +6,12 @@ import com.my.total_jpa_back.users.entity.Users;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "user_order")
 public class UserOrder extends BaseEntity {
     @Id
@@ -26,4 +28,5 @@ public class UserOrder extends BaseEntity {
     private Integer price; // 나중에 QueryDSL 조건 사용 때문에...
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
 }
